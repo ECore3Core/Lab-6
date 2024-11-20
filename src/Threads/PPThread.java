@@ -2,9 +2,9 @@ package Threads;
 
 import Vehicle.Vehicle;
 
-public class SPThread extends Thread{
+public class PPThread extends Thread{
     private Vehicle vehicle;
-    public SPThread(String threadName, Vehicle v){
+    public PPThread(String threadName, Vehicle v){
         super(threadName);
         vehicle = v;
     }

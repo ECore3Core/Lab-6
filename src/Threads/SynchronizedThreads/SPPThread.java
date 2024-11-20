@@ -2,11 +2,11 @@ package Threads.SynchronizedThreads;
 
 import Vehicle.Vehicle;
 
-public class SSPThread implements Runnable{
+public class SPPThread implements Runnable{
     TransportSynchronizer synchronizer;
     Vehicle v;
     
-    public SSPThread(TransportSynchronizer synchronizer, Vehicle v){
+    public SPPThread(TransportSynchronizer synchronizer, Vehicle v){
         this.synchronizer = synchronizer;
         this.v = v;
     }

@@ -1,9 +1,11 @@
 import Reflection.Reflection;
-import Threads.SNThread;
-import Threads.SPThread;
-import Threads.SynchronizedThreads.SSNThread;
-import Threads.SynchronizedThreads.SSPThread;
+import Threads.PNThread;
+import Threads.PPThread;
+import Threads.SynchronizedThreads.SPNThread;
+import Threads.SynchronizedThreads.SPPThread;
 import Threads.SynchronizedThreads.TransportSynchronizer;
+import Threads.LockingThreads.LPNThread;
+import Threads.LockingThreads.LPPThread;
 import Vehicle.Vehicle;
 
 import java.io.FileReader;
@@ -21,8 +23,8 @@ public class App {
         System.out.println("-----------------------Задание 1-------------------------");
 
         Moped moped = new Moped("BMW", 10);
-        SPThread thread1 = new SPThread("SPThread", moped);
-        SNThread thread2 = new SNThread("SNTread", moped);
+        PPThread thread1 = new PPThread("SPThread", moped);
+        PNThread thread2 = new PNThread("SNTread", moped);
 
         thread1.setPriority(Thread.MIN_PRIORITY);
         thread2.setPriority(Thread.MAX_PRIORITY);
@@ -48,13 +50,23 @@ public class App {
 
         TransportSynchronizer synchronizer = new TransportSynchronizer(quadBike);
 
-        SSPThread sspRunnable = new SSPThread(synchronizer, quadBike);
-        SSNThread ssnRunnable = new SSNThread(synchronizer, quadBike);
+        SPPThread sspRunnable = new SPPThread(synchronizer, quadBike);
+        SPNThread ssnRunnable = new SPNThread(synchronizer, quadBike);
 
         Thread sspThread = new Thread(sspRunnable);
         Thread ssnThread = new Thread(ssnRunnable);
 
         sspThread.start();
         ssnThread.start();
+
+
+        //Задание 3
+        System.out.println("-----------------------Задание 3-------------------------");
+
+        Thread lpnThread = new Thread(new LPNThread(quadBike));
+        Thread lppThread = new Thread(new LPPThread(quadBike));
+
+        lpnThread.start();
+        lppThread.start();
     }
 }
