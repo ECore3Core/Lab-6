@@ -1,4 +1,6 @@
 import Reflection.Reflection;
+import Threads.ShowNamesThread;
+import Threads.ShowPricesThread;
 import Vehicle.Vehicle;
 
 import java.io.FileReader;
@@ -11,83 +13,28 @@ import Exceptions.NoSuchModelNameException;
 import MainVehicles.*;
 
 public class App {
-    public static void main(String[] args)throws NoSuchModelNameException, DuplicateModelNameException, IOException{
+    public static void main(String[] args){
         //Задание 1
-        Reflection.SetPriceByName(args[0], args[1], args[2], args[3]);
+        Moped moped = new Moped("BMW", 10);
+        ShowPricesThread thread1 = new ShowPricesThread("SPThread", moped);
+        ShowNamesThread thread2 = new ShowNamesThread("SNTread", moped);
 
-        //Задание 2
-        Car car = new Car("", 0);
-        Vehicle v = Vehicles.createVehicle("BMW", 10, car);
-        System.out.println(v.getClass());
+        thread1.setPriority(Thread.MIN_PRIORITY);
+        thread2.setPriority(Thread.MAX_PRIORITY);
+        
+        thread2.start();
+        thread1.start();
+        
 
-        //Задание 3
-        Scooter scooter = new Scooter("LADA", 10);
-        scooter.printInfo();
-        scooter.deleteModel("Scooter1");
-        scooter.printInfo();
-        scooter.setModelName("Scooter4", "kal");
-        scooter.setPrice("Scooter2", 15);
-        scooter.printInfo();
-        scooter.addModel("bab", 5);
-        scooter.printInfo();
-        String[] scooterNames = scooter.getModelsNames();
-        for(String s : scooterNames){
-            System.out.print(s + " ");
+        try{
+            thread1.join();
+            thread2.join();
         }
-        double[] scooterPrices = scooter.getModelsPrices();
-        for(double d : scooterPrices){
-            System.out.print(d + " ");
+        catch(InterruptedException e){
+            e.printStackTrace();
         }
-        System.out.println();
 
+        System.out.println("Оба потока завершены");
 
-        //Задание 4
-        QuadBike quadBike = new QuadBike("Yamaha", 10);
-        quadBike.printInfo();
-        quadBike.deleteModel("QuadBike1");
-        quadBike.printInfo();
-        quadBike.setModelName("QuadBike4", "kal");
-        quadBike.setPrice("QuadBike2", 15);
-        quadBike.printInfo();
-        quadBike.addModel("bab", 5);
-        quadBike.printInfo();
-        String[] quadBikeNames = quadBike.getModelsNames();
-        for(String s : quadBikeNames){
-            System.out.print(s + " ");
-        }
-        double[] quadBikePrices = quadBike.getModelsPrices();
-        for(double d : quadBikePrices){
-            System.out.print(d + " ");
-        }
-        System.out.println();
-
-        //Задание 5
-        Moped moped = new Moped("Mercedes", 10);
-        moped.printInfo();
-        moped.deleteModel("Moped1");
-        moped.printInfo();
-        moped.setModelName("Moped4", "kal");
-        moped.setPrice("Moped2", 15);
-        moped.printInfo();
-        moped.addModel("bab", 5);
-        moped.printInfo();
-        String[] mopedNames = moped.getModelsNames();
-        for(String s : mopedNames){
-            System.out.print(s + " ");
-        }
-        double[] mopedPrices = moped.getModelsPrices();
-        for(double d : mopedPrices){
-            System.out.print(d + " ");
-        }
-        System.out.println();
-
-        //Задание 6
-        System.out.println(Vehicles.getVehiclesArithmeticalMean(scooter, quadBike, moped));
-
-        //Задание 7
-        PrintWriter writer = new PrintWriter("text.txt");
-        Vehicles.writeVehicle(moped, writer);
-        Moped moped2 = (Moped) Vehicles.readVehicle(new FileReader("text.txt"));
-        moped2.printInfo();
     }
 }
