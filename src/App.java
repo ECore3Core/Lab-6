@@ -59,6 +59,14 @@ public class App {
         sspThread.start();
         ssnThread.start();
 
+        try{
+            sspThread.join();
+            ssnThread.join();
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
 
         //Задание 3
         System.out.println("-----------------------Задание 3-------------------------");
@@ -68,5 +76,18 @@ public class App {
 
         lpnThread.start();
         lppThread.start();
+
+        try{
+            lppThread.join();
+            lpnThread.join();
+        }
+        catch(InterruptedException e){
+            e.printStackTrace();
+        }
+
+        //Задание 4
+        System.out.println("-----------------------Задание 4-------------------------");
+
+
     }
 }

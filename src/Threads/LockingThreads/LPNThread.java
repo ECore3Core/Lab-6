@@ -6,10 +6,11 @@ import Vehicle.Vehicle;
 
 public class LPNThread implements Runnable{
     Vehicle v;
-    private ReentrantLock lock = new ReentrantLock();
+    private ReentrantLock lock;
 
-    public LPNThread(Vehicle v){
+    public LPNThread(Vehicle v, ReentrantLock lock){
         this.v = v;
+        this.lock = lock;
     }
 
     @Override
