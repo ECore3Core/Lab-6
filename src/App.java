@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.concurrent.locks.ReentrantLock;
 
 import Exceptions.DuplicateModelNameException;
 import Exceptions.NoSuchModelNameException;
@@ -71,8 +72,9 @@ public class App {
         //Задание 3
         System.out.println("-----------------------Задание 3-------------------------");
 
-        Thread lpnThread = new Thread(new LPNThread(quadBike));
-        Thread lppThread = new Thread(new LPPThread(quadBike));
+        ReentrantLock lock = new ReentrantLock();
+        Thread lpnThread = new Thread(new LPNThread(quadBike, lock));
+        Thread lppThread = new Thread(new LPPThread(quadBike, lock));
 
         lpnThread.start();
         lppThread.start();
