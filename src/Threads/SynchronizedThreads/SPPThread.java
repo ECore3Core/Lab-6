@@ -3,8 +3,8 @@ package Threads.SynchronizedThreads;
 import Vehicle.Vehicle;
 
 public class SPPThread implements Runnable{
-    TransportSynchronizer synchronizer;
-    Vehicle v;
+    private TransportSynchronizer synchronizer;
+    private Vehicle v;
     
     public SPPThread(TransportSynchronizer synchronizer, Vehicle v){
         this.synchronizer = synchronizer;

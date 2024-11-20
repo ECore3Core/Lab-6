@@ -5,8 +5,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import Vehicle.Vehicle;
 
 public class LPPThread implements Runnable{
-    Vehicle v;
-    ReentrantLock lock;
+    private Vehicle v;
+    private ReentrantLock lock;
 
     public LPPThread(Vehicle v, ReentrantLock lock){
         this.v = v;

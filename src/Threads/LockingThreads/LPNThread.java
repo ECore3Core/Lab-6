@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import Vehicle.Vehicle;
 
 public class LPNThread implements Runnable{
-    Vehicle v;
+    private Vehicle v;
     private ReentrantLock lock;
 
     public LPNThread(Vehicle v, ReentrantLock lock){

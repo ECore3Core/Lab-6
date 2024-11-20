@@ -1,4 +1,5 @@
 import Reflection.Reflection;
+import Threads.PBThread;
 import Threads.PNThread;
 import Threads.PPThread;
 import Threads.SynchronizedThreads.SPNThread;
@@ -12,6 +13,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 import Exceptions.DuplicateModelNameException;
@@ -91,5 +94,23 @@ public class App {
         System.out.println("-----------------------Задание 4-------------------------");
 
 
+        Car car = new Car("Mercedes", 11);
+        Scooter scooter = new Scooter("Yamaha", 1);
+        QuadBike quadBike2 = new QuadBike("Ford", 20);
+        Motorcycle moto = new Motorcycle("Honda", 2);
+
+        PBThread pbTread1 = new PBThread(car);
+        PBThread pbTread2 = new PBThread(scooter);
+        PBThread pbTread3 = new PBThread(quadBike2);
+        PBThread pbTread4 = new PBThread(moto);
+
+        ExecutorService executors = Executors.newFixedThreadPool(2);
+        
+        executors.submit(pbTread1);
+        executors.submit(pbTread2);
+        executors.submit(pbTread3);
+        executors.submit(pbTread4);
+
+        executors.shutdown();
     }
 }
