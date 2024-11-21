@@ -17,11 +17,11 @@ public class TransportSynchronizer {
         synchronized(lock) {
             double [] p = v.getModelsPrices();
             if (!canPrintPrice()) throw new InterruptedException();
-            while (!set)
+            while (set)
                 lock.wait();
-            val = p[current++];
+            val = p[current];
             System.out.println("Print price: " + val);
-            set = false;
+            set = true;
             lock.notifyAll();
         }
     }  
@@ -30,19 +30,19 @@ public class TransportSynchronizer {
         synchronized(lock) {
             String [] s = v.getModelsNames();
             if (!canPrintModel()) throw new InterruptedException();
-            while (set)
+            while (!set)
                 lock.wait();
-            System.out.println("Print model: " + s[current]);
-            set = true;
+            System.out.println("Print model: " + s[current++]);
+            set = false;
             lock.notifyAll();
         }
     }
     
     public boolean canPrintPrice() {
-        return current < v.getModelsSize();
+        return (!set && current < v.getModelsSize()) || (set && current < v.getModelsSize() - 1);
     }
     
     public boolean canPrintModel() {
-        return (!set && current < v.getModelsSize()) || (set && current < v.getModelsSize() - 1);
+        return (current < v.getModelsSize());
     }
 }

@@ -4,17 +4,15 @@ import Vehicle.Vehicle;
 
 public class SPPThread implements Runnable{
     private TransportSynchronizer synchronizer;
-    private Vehicle v;
     
-    public SPPThread(TransportSynchronizer synchronizer, Vehicle v){
+    public SPPThread(TransportSynchronizer synchronizer){
         this.synchronizer = synchronizer;
-        this.v = v;
     }
 
     @Override
     public void run(){
         try{
-            for(int i = 0; i < v.getModelsSize(); i++){
+            while(synchronizer.canPrintPrice()){
                 synchronizer.printPrice();
             }
         }
