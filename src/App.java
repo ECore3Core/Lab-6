@@ -2,6 +2,7 @@ import Reflection.Reflection;
 import Threads.PBThread;
 import Threads.PNThread;
 import Threads.PPThread;
+import Threads.RFFThread;
 import Threads.SynchronizedThreads.SPNThread;
 import Threads.SynchronizedThreads.SPPThread;
 import Threads.SynchronizedThreads.TransportSynchronizer;
@@ -9,16 +10,11 @@ import Threads.LockingThreads.LPNThread;
 import Threads.LockingThreads.LPPThread;
 import Vehicle.Vehicle;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
-import Exceptions.DuplicateModelNameException;
-import Exceptions.NoSuchModelNameException;
 import MainVehicles.*;
 
 public class App {
@@ -112,5 +108,24 @@ public class App {
         executors.submit(pbTread4);
 
         executors.shutdown();
+
+
+        //Задание 5
+        System.out.println("-----------------------Задание 5-------------------------");
+
+        String[] filesNames = new String[] {"D:\\ООП лабы\\Lab-6\\src\\vehicle1.txt", "D:\\ООП лабы\\Lab-6\\src\\vehicle2.txt", "D:\\ООП лабы\\Lab-6\\src\\vehicle3.txt", "D:\\ООП лабы\\Lab-6\\src\\vehicle4.txt", "D:\\ООП лабы\\Lab-6\\src\\vehicle5.txt"};
+        ArrayBlockingQueue<Vehicle> arrayBlockingQueue = new ArrayBlockingQueue<>(2);
+
+        for(String s : filesNames){
+            (new Thread(new RFFThread(s, arrayBlockingQueue))).start();
+        }
+
+        while(arrayBlockingQueue.size() !=0){
+            try {
+                System.out.println(arrayBlockingQueue.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
