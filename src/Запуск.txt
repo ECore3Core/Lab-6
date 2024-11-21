@@ -1,4 +1,0 @@
-чтобы запустить первое задание :
-находясь в папке src в консоли 
-•javac Reflection/Reflection.java MainVehicles/Car.java App.java Exceptions/*.java
-•java App MainVehicles.Car setPrice Car1 150.0
