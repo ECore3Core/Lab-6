@@ -35,27 +35,28 @@ public class App {
     //     System.out.println("Оба потока завершены");
 
 
-        //Задание 2
-        System.out.println("-----------------------Задание 2-------------------------");
+        // //Задание 2
+        // System.out.println("-----------------------Задание 2-------------------------");
 
-        QuadBike quadBike = new QuadBike("Mitsubishi", 15);
+        // QuadBike quadBike = new QuadBike("Mitsubishi", 15);
 
-        TransportSynchronizer synchronizer = new TransportSynchronizer(quadBike);
+        // TransportSynchronizer synchronizer = new TransportSynchronizer(quadBike);
 
-        SPPThread sspRunnable = new SPPThread(synchronizer);
-        SPNThread ssnRunnable = new SPNThread(synchronizer);
+        // SPPThread sspRunnable = new SPPThread(synchronizer);
+        // SPNThread ssnRunnable = new SPNThread(synchronizer);
 
-        Thread sspThread = new Thread(sspRunnable);
-        Thread ssnThread = new Thread(ssnRunnable);
+        // Thread sspThread = new Thread(sspRunnable);
+        // Thread ssnThread = new Thread(ssnRunnable);
 
-        sspThread.start();
-        ssnThread.start();
+        // sspThread.start();
+        // ssnThread.start();
 
 
 
         // //Задание 3
         // System.out.println("-----------------------Задание 3-------------------------");
 
+        // QuadBike quadBike = new QuadBike("Mitsubishi", 15);
         // ReentrantLock lock = new ReentrantLock();
         // Thread lpnThread = new Thread(new LPNThread(quadBike, lock));
         // Thread lppThread = new Thread(new LPPThread(quadBike, lock));
@@ -63,13 +64,6 @@ public class App {
         // lpnThread.start();
         // lppThread.start();
 
-        // try{
-        //     lppThread.join();
-        //     lpnThread.join();
-        // }
-        // catch(InterruptedException e){
-        //     e.printStackTrace();
-        // }
 
         // //Задание 4
         // System.out.println("-----------------------Задание 4-------------------------");
@@ -95,26 +89,26 @@ public class App {
         // executors.shutdown();
 
 
-        // //Задание 5
-        // System.out.println("-----------------------Задание 5-------------------------");
+        //Задание 5
+        System.out.println("-----------------------Задание 5-------------------------");
 
-        // String[] filesNames = new String[] {"D:\\ООП лабы\\Lab-6\\src\\vehicle1.txt"
-        //                                     ,"D:\\ООП лабы\\Lab-6\\src\\vehicle2.txt"
-        //                                     ,"D:\\ООП лабы\\Lab-6\\src\\vehicle3.txt"
-        //                                     ,"D:\\ООП лабы\\Lab-6\\src\\vehicle4.txt"
-        //                                     ,"D:\\ООП лабы\\Lab-6\\src\\vehicle5.txt"};
-        // ArrayBlockingQueue<Vehicle> arrayBlockingQueue = new ArrayBlockingQueue<>(2);
+        String[] filesNames = new String[] {"D:\\ООП лабы\\Lab-6\\src\\vehicle1.txt"
+                                            ,"D:\\ООП лабы\\Lab-6\\src\\vehicle2.txt"
+                                            ,"D:\\ООП лабы\\Lab-6\\src\\vehicle3.txt"
+                                            ,"D:\\ООП лабы\\Lab-6\\src\\vehicle4.txt"
+                                            ,"D:\\ООП лабы\\Lab-6\\src\\vehicle5.txt"};
+        ArrayBlockingQueue<Vehicle> arrayBlockingQueue = new ArrayBlockingQueue<>(2);
 
-        // for(String s : filesNames){
-        //     (new Thread(new RFFThread(s, arrayBlockingQueue))).start();
-        // }
+        for(String s : filesNames){
+            (new Thread(new RFFThread(s, arrayBlockingQueue))).start();
+        }
 
-        // while(arrayBlockingQueue.size() !=0){
-        //     try {
-        //         System.out.println(arrayBlockingQueue.take());
-        //     } catch (InterruptedException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
+        while(arrayBlockingQueue.size() !=0){
+            try {
+                System.out.println(arrayBlockingQueue.take());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
