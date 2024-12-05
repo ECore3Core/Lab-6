@@ -103,7 +103,7 @@ public class App {
             (new Thread(new RFFThread(s, arrayBlockingQueue))).start();
         }
 
-        while(arrayBlockingQueue.size() !=0){
+        for(int i = 0; i < filesNames.length; i++){
             try {
                 System.out.println(arrayBlockingQueue.take());
             } catch (InterruptedException e) {
